@@ -1,18 +1,21 @@
-const imgEffect = (target, options = {}) => {
-  let { row = 4, columns = 8, duration = 0.2, timer } = options;
+import { Options, ImgOptions } from './../../index'
 
-  target = document.querySelector(target);
+const imgEffect = (node: string, options = {}) => {
+  let { row = 4, columns = 8, duration = 0.2, timer }: Partial<Options> = options;
+
+   const target = document.querySelector(node) as HTMLElement;
+  
   duration = duration > 1 ? +(+`0.${duration}`) : duration;
 
   // duration check
   console.log(duration);
 
-  let templete = "";
+  let templete: string = "";
 
   const {
     imgBox: { rowHeight, columnWidth },
     imgPosition: { imgWidth, imgHeight },
-  } = {
+  }: ImgOptions = {
     // imgBox size set
     imgBox: {
       rowHeight: `${100 / row}%`,
@@ -29,11 +32,11 @@ const imgEffect = (target, options = {}) => {
     for (let i = 0; i < row; i++) {
       for (let j = 0; j < columns; j++) {
         // const delaySpeed = ((columns - j) - (i * 0.5)) * 0.25;
-        const [cSp, iSp] = [columns - j, i * 0.5];
-        const delaySpeed = (cSp - iSp) * duration;
+        const [cSp, iSp]:[number, number] = [columns - j, i * 0.5];
+        const delaySpeed: number = (cSp - iSp) * duration;
 
-        const left = `${-j * 100}%`;
-        const top = `${-i * 100}%`;
+        const left: string = `${-j * 100}%`;
+        const top: string = `${-i * 100}%`;
 
         templete += /* html */ `
             <div class="img_box" style="width:${columnWidth}; height:${rowHeight}; transition-delay:${delaySpeed}s;
@@ -48,8 +51,8 @@ const imgEffect = (target, options = {}) => {
     timer &&
       setTimeout(() => {
         target.classList.add("on");
-        [...target.children].forEach((el) => {
-          el.style.opacity = "1";
+        Array.from(target.children).forEach((el): void => {          
+          (el as HTMLElement).style.opacity = "1";
         });
       }, timer);
   })();
@@ -58,9 +61,9 @@ const imgEffect = (target, options = {}) => {
 /* test */
 imgEffect(".bg01", {});
 imgEffect(".bg02", { row: 10, columns: 10, duration: 2 });
-imgEffect(".bg03", { row: 20, columns: 30, duration: 02 });
+imgEffect(".bg03", { row: 20, columns: 30, duration: 2 });
 
-window.addEventListener("click", ({ target }) => {
-  const _target = target.closest(".effect");
+window.addEventListener("click", (e:MouseEvent): void => {
+  const _target = (e.target as HTMLElement).closest(".effect");
   _target && _target.classList.toggle("on");
 });

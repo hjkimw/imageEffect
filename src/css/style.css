@@ -64,13 +64,13 @@ body {
 }
 
 .effect.bg01 {
-  background-image: url("../../images/1.jpg");
+  background-image: url("../../img/1.jpg");
 }
 .effect.bg02 {
-  background-image: url("../../images/2.jpg");
+  background-image: url("../../img/2.jpg");
 }
 .effect.bg03 {
-  background-image: url("../../images/3.jpg");
+  background-image: url("../../img/3.jpg");
 }
 
 .effect.bg01.on .img_box,
